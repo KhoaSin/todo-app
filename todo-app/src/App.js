@@ -1,63 +1,146 @@
 import React, { useState, useEffect } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
+import './App.css';
 
 function App() {
-  // Khởi tạo state todos và lấy dữ liệu từ localStorage nếu có
+  // State chứa danh sách công việc
   const [todos, setTodos] = useState(() => {
-    // Lấy danh sách todos từ localStorage khi app khởi động
     const saved = localStorage.getItem('todos');
-    return saved ? JSON.parse(saved) : []; // Nếu có dữ liệu thì chuyển từ JSON thành mảng, nếu không thì trả về mảng rỗng
+    return saved ? JSON.parse(saved) : [];
   });
 
-  // Lưu danh sách todos vào localStorage mỗi khi todos thay đổi
-  useEffect(() => {
-    // Chuyển todos thành chuỗi JSON và lưu vào localStorage
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]); // useEffect sẽ chạy khi todos thay đổi
+  // Bộ lọc công việc (all, active, completed)
+  const [filter, setFilter] = useState('all');
 
-  // Thêm một công việc mới vào danh sách todos
+  // Từ khoá tìm kiếm
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Chế độ Dark Mode
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved === 'true';
+  });
+
+  // Lưu todos mỗi khi thay đổi
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  // Lưu trạng thái dark mode
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
+
+  // Thêm công việc
   const addTodo = (text) => {
     const newTodo = {
-      id: Date.now(), // Sử dụng thời gian hiện tại để tạo id duy nhất cho công việc
-      text, // Nội dung công việc
-      completed: false, // Trạng thái công việc mặc định là chưa hoàn thành
+      id: Date.now(),
+      text,
+      completed: false,
     };
-    setTodos([...todos, newTodo]); // Cập nhật danh sách todos với công việc mới
+    setTodos([...todos, newTodo]);
   };
 
-  // Đánh dấu một công việc là hoàn thành hoặc chưa hoàn thành
+  // Toggle hoàn thành
   const toggleTodo = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
-    ); // Duyệt qua danh sách todos và thay đổi trạng thái completed của công việc có id tương ứng
+    );
   };
 
-  // Xóa công việc khỏi danh sách
+  // Xoá công việc
   const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id)); // Lọc ra các công việc không có id trùng với id cần xóa
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  // Chỉnh sửa nội dung của một công việc
+  // Sửa nội dung công việc
   const editTodo = (id, newText) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, text: newText } : todo
       )
-    ); // Duyệt qua danh sách todos và thay đổi nội dung công việc có id tương ứng
+    );
+  };
+
+  // Bộ lọc + tìm kiếm
+  const filteredTodos = todos.filter((todo) => {
+    const matchesFilter =
+      filter === 'all' ||
+      (filter === 'active' && !todo.completed) ||
+      (filter === 'completed' && todo.completed);
+
+    const matchesSearch = todo.text
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    return matchesFilter && matchesSearch;
+  });
+
+  const completedCount = todos.filter((todo) => todo.completed).length;
+
+  // Đánh dấu hoàn thành tất cả
+  const completeAllTodos = () => {
+    setTodos(todos.map((todo) => ({ ...todo, completed: true })));
+  };
+
+  // Bỏ huỷ tất cả
+  const uncompleteAllTodos = () => {
+    setTodos(todos.map((todo) => ({ ...todo, completed: false })));
+  };
+
+  // Xoá tất cả công việc
+  const deleteAllTodos = () => {
+    setTodos([]);
   };
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode ? 'dark-mode' : ''}`} style={{ maxWidth: '600px', margin: 'auto', padding: '20px' }}>
       <h1>To-Do App</h1>
-      {/* Component TodoForm nhận props onAdd để thêm công việc mới */}
+
+      {/* Nút chuyển Dark Mode */}
+      <div style={{ textAlign: 'right', marginBottom: '10px' }}>
+        <button onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+        </button>
+      </div>
+
+      {/* Form thêm công việc */}
       <TodoForm onAdd={addTodo} />
 
-      {/* Component TodoList nhận props todos, onToggle, onDelete và onEdit để hiển thị và thao tác với danh sách công việc */}
+      {/* Tìm kiếm */}
+      <input
+        type="text"
+        placeholder="Search a task..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        style={{ padding: '5px', width: '100%', marginBottom: '10px' }}
+      />
+
+      {/* Bộ lọc */}
+      <div style={{ marginBottom: '10px' }}>
+        <button onClick={() => setFilter('all')}>All</button>
+        <button onClick={() => setFilter('active')}>Active</button>
+        <button onClick={() => setFilter('completed')}>Completed</button>
+      </div>
+
+      {/* Thống kê */}
+      <div style={{ marginBottom: '10px' }}>
+        Completed: {completedCount}/{todos.length}
+      </div>
+
+      {/* Nút thực hiện các hành động */}
+      <div style={{ marginBottom: '10px' }}>
+        <button onClick={completeAllTodos}>Complete All</button>
+        <button onClick={uncompleteAllTodos}>Uncomplete All</button>
+        <button onClick={deleteAllTodos}>Delete All</button>
+      </div>
+
+      {/* Danh sách công việc */}
       <TodoList
-        todos={todos}
+        todos={filteredTodos}
         onToggle={toggleTodo}
         onDelete={deleteTodo}
         onEdit={editTodo}
