@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+To-Do App Features
+Overview:
+This To-Do App allows users to manage their tasks efficiently with various features to add, complete, edit, delete, and filter tasks. It also includes a dark mode for a better user experience.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Features:
+Add New Task
 
-## Available Scripts
+Users can add new tasks by typing in the input field and clicking the "Add" button.
 
-In the project directory, you can run:
+Each task has a unique identifier and a completed status (initially false).
 
-### `npm start`
+Toggle Task Completion
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Tasks can be marked as completed or uncompleted by clicking on the task.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+When a task is completed, it gets a line-through style to visually indicate it is finished.
 
-### `npm test`
+Edit Task
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Users can edit the content of a task.
 
-### `npm run build`
+Editing a task allows the user to update the text and save the changes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Delete Task
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Users can delete individual tasks by clicking the delete button associated with each task.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The task is immediately removed from the list.
 
-### `npm run eject`
+Filter Tasks
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Users can filter the tasks based on their completion status:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+All: Shows all tasks.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Active: Shows tasks that are not completed.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Completed: Shows tasks that are completed.
 
-## Learn More
+Search Tasks
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+A search bar allows users to filter tasks by keywords.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The search is case-insensitive and matches any part of the task text.
 
-### Code Splitting
+Complete All Tasks
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+A button allows users to mark all tasks as completed at once.
 
-### Analyzing the Bundle Size
+This updates the completed status of all tasks to true.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Uncomplete All Tasks
 
-### Making a Progressive Web App
+A button allows users to mark all tasks as uncompleted at once.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This updates the completed status of all tasks to false.
 
-### Advanced Configuration
+Delete All Tasks
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+A button allows users to delete all tasks from the list at once.
 
-### Deployment
+This clears the entire list of tasks.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Dark Mode Toggle
 
-### `npm run build` fails to minify
+Users can switch between light mode and dark mode.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The app remembers the user's preference for dark mode across sessions using localStorage.
+
+Data Persistence:
+Tasks are saved in localStorage to persist the data even after the page is reloaded or the app is closed and reopened.
+
+The state of dark mode is also saved in localStorage, ensuring the preference is maintained.
+
+UI Design:
+The app has a clean, minimalist design with easy-to-use buttons for each function.
+
+The dark mode provides a more comfortable viewing experience in low-light environments.
+
+The app is responsive and works well on both mobile and desktop screens.
+
