@@ -1,0 +1,55 @@
+To-Do App - React
+Tính năng:
+
+Thêm nhiệm vụ mới:
+
+Cho phép người dùng nhập nội dung và thêm nhiệm vụ mới vào danh sách.
+
+Nhiệm vụ được lưu trữ trong localStorage để đảm bảo dữ liệu không mất khi làm mới trang.
+
+Đánh dấu hoàn thành nhiệm vụ:
+
+Cho phép người dùng đánh dấu hoặc bỏ đánh dấu nhiệm vụ là hoàn thành bằng cách nhấn checkbox.
+
+Nhiệm vụ hoàn thành sẽ có hiệu ứng gạch chéo.
+
+Chỉnh sửa nhiệm vụ:
+
+Người dùng có thể chỉnh sửa nội dung của nhiệm vụ.
+
+Sau khi chỉnh sửa, người dùng có thể lưu lại thay đổi hoặc hủy chế độ chỉnh sửa.
+
+Xoá nhiệm vụ:
+
+Cho phép người dùng xoá nhiệm vụ khỏi danh sách.
+
+Dữ liệu sẽ được cập nhật ngay lập tức trong localStorage.
+
+Lưu trữ dữ liệu với localStorage:
+
+Mọi thay đổi của danh sách nhiệm vụ (thêm, sửa, xoá) đều được lưu vào localStorage.
+
+Điều này đảm bảo dữ liệu không bị mất khi trang được làm mới.
+
+Giao diện đơn giản và thân thiện với người dùng:
+
+Giao diện người dùng dễ sử dụng với các chức năng rõ ràng như thêm, sửa, xoá, đánh dấu hoàn thành.
+
+Ứng dụng hỗ trợ hiển thị danh sách nhiệm vụ có trạng thái hoàn thành hoặc chưa hoàn thành.
+
+Kỹ thuật sử dụng:
+React: Sử dụng React để xây dựng ứng dụng giao diện người dùng.
+
+useState, useEffect: Quản lý trạng thái và hiệu ứng trong ứng dụng.
+
+localStorage: Lưu trữ dữ liệu người dùng (danh sách nhiệm vụ) vào localStorage để bảo vệ dữ liệu khỏi mất mát khi trang được làm mới.
+
+JSX: Sử dụng JSX để xây dựng giao diện người dùng với các component như TodoForm, TodoList, và TodoItem.
+
+Tính năng nâng cao (nếu có thể mở rộng):
+Lọc nhiệm vụ: Thêm các tính năng lọc để người dùng có thể xem chỉ những nhiệm vụ hoàn thành hoặc chưa hoàn thành.
+
+Sắp xếp nhiệm vụ: Thêm khả năng sắp xếp nhiệm vụ theo tên hoặc theo trạng thái hoàn thành.
+
+Thông báo nhắc nhở: Tính năng nhắc nhở người dùng về nhiệm vụ cần hoàn thành trong một thời gian cụ thể.
+
